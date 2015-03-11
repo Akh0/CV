@@ -1,0 +1,17 @@
+<section class="contact even">
+    <div class="content">
+        <h2>Contact</h2>
+
+        <form ng-submit="submit()" ng-controller="ContactCtrl">
+            <!--<label for="nom">Nom</label><br/>-->
+            <input type="text" ng-model="contact.nom" id="nom" placeholder="Nom"/><br/>
+            <!--<label for="email">E-mail</label><br/>-->
+            <input type="text" ng-model="contact.email" id="email" placeholder="E-mail"/><br/>
+            <!--<label for="message">Message</label><br/>-->
+            <textarea ng-model="contact.message" id="message" placeholder="Message"></textarea><br/>
+            <label id="label-captcha" for="captcha">1 + 1 = </label>
+            <input type="text" ng-model="contact.captcha" id="captcha" placeholder="Captcha"/><br/>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+</section>
