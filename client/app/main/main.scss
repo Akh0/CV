@@ -16,6 +16,21 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
+
+@font-face {
+  font-family: 'SwaggerMedium';
+  src: url('/components/font/Swagger-webfont.eot');
+  src: url('/components/font/Swagger-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/components/font/Swagger-webfont.woff2') format('woff2'),
+  url('/components/font/Swagger-webfont.woff') format('woff'),
+  url('/components/font/Swagger-webfont.ttf') format('truetype'),
+  url('/components/font/Swagger-webfont.svg#swaggermedium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
 a {
   text-decoration: none;
 }
@@ -454,6 +469,10 @@ body {
     &.contact {
       text-align: center;
 
+      .contact-inputs {
+        height: 340px;
+      }
+
       input, textarea {
         font-family: Montserrat;
         border: 1px solid #dedede;
@@ -495,6 +514,33 @@ body {
         font-size: 14px;
         margin-top: 20px;
         cursor: pointer;
+      }
+
+      .contact-letter {
+        overflow: hidden;
+        padding: 40px 20px;
+        background-color: #fff6e8;
+        -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+
+
+        width: 450px;
+        height: 280px;
+        font-family: SwaggerMedium;
+        font-size: 20px;
+        letter-spacing: 1px;
+        margin: auto;
+        color: #373737;
+
+        p.sender,
+        p.message {
+          text-align: left;
+        }
+
+        p.receiver {
+          text-align: right;
+        }
       }
 
       .form-response {

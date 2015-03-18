@@ -3,17 +3,34 @@
         <h2>Contact</h2>
 
         <form ng-submit="submit()" ng-controller="ContactCtrl">
-            <!--<label for="nom">Nom</label><br/>-->
-            <input type="text" ng-model="contact.nom" id="nom" placeholder="Nom"/><br/>
-            <!--<label for="email">E-mail</label><br/>-->
-            <input type="email" ng-model="contact.email" id="email" placeholder="E-mail"/><br/>
-            <!--<label for="message">Message</label><br/>-->
-            <textarea ng-model="contact.message" id="message" placeholder="Message"></textarea><br/>
-            <label id="label-captcha" for="captcha">1 + 1 = </label>
-            <input type="text" ng-model="contact.captcha" id="captcha" placeholder="Captcha"/><br/>
+            <div class="contact-inputs" ng-show="!messageSent">
+                <input type="text" ng-model="contact.nom" id="nom" placeholder="Nom"/><br/>
+                <input type="email" ng-model="contact.email" id="email" placeholder="E-mail"/><br/>
+                <textarea ng-model="contact.message" id="message" placeholder="Message"></textarea>
+                <br/>
+                <label id="label-captcha" for="captcha">1 + 1 = </label>
+                <input type="text" ng-model="contact.captcha" id="captcha" placeholder="Captcha"/>
+            </div>
+
+            <div class="contact-letter" ng-show="messageSent">
+                <p class="sender">
+                    {{ contact.nom }}<br/>
+                    from: {{ contact.email }}
+                </p>
+
+                <p class="receiver">
+                    Achille GUILLON<br/>
+                    to: achille.guillon@gmail.com
+                </p>
+
+                <p class="message" ng-bind-html="contact.message | nl2br"></p>
+            </div>
+
             <button type="submit">Envoyer</button>
             <p ng-show="!successMessage && !errorMessage"></p>
+
             <p ng-show="successMessage" class="form-response success">{{ successMessage }}</p>
+
             <p ng-show="errorMessage" class="form-response error">{{ errorMessage }}</p>
         </form>
     </div>
