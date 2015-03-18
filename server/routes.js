@@ -9,6 +9,7 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
+  //app.use('/captcha', require('./api/captcha'));
   app.use('/api/contacts', require('./api/contact'));
   app.use('/api/things', require('./api/thing'));
   

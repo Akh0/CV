@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cv2App')
-  .factory('scrollTo', function () {
+  .factory('scrollTo', function ($window) {
     // Service logic
     // ...
 
@@ -11,9 +11,12 @@ angular.module('cv2App')
           var $div = $('#'+anchorTag);
 
           if($div.length > 0) {
+              var offsetTop = $div.offset().top;
+              var duration = Math.abs($window.pageYOffset - offsetTop) * 0.5;
+
               $('html, body').animate({
-                  scrollTop: $div.offset().top - 50
-              }, 2000);
+                  scrollTop: offsetTop - 50
+              }, duration);
           }
           else {
               console.error('Invalid selector: '+anchorTag);

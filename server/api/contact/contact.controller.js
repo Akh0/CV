@@ -2,7 +2,17 @@
 
 var _ = require('lodash');
 var Contact = require('./contact.model');
+var validator = require('validator');
 var nodemailer = require('nodemailer');
+
+// create reusable transporter object using SMTP transport
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'achille.guillon@gmail.com',
+        pass: 'akh894+-+-'
+    }
+});
 
 // Get list of contacts
 exports.index = function(req, res) {
@@ -23,20 +33,32 @@ exports.show = function(req, res) {
 
 // Creates a new contact in the DB.
 exports.create = function(req, res) {
+    var response = {};
+
+    var contact = req.body;
+
+    if(typeof contact.nom === 'undefined' || contact.nom.length == 0) {
+        response.message = 'Veuillez saisir votre nom.';
+    }
+    else if(!validator.isEmail(contact.email)) {
+        response.message = 'E-mail incorrecte.';
+    }
+    else if(typeof contact.message === 'undefined' || contact.message.length == 0) {
+        response.message = 'Veuillez saisir un message.';
+    }
+    else if(typeof contact.captcha === 'undefined' || contact.captcha.length == 0) {
+        response.message = 'Captcha incorrect.';
+    }
+
+    if(response.message.length > 0) {
+        return handleError(res, response);
+    }
+
   Contact.create(req.body, function(err, contact) {
-    if(err) { return handleError(res, err); }
-
-      // create reusable transporter object using SMTP transport
-      var transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-              user: 'achille.guillon@gmail.com',
-              pass: 'akh894+-+-'
-          }
-      });
-
-// NB! No need to recreate the transporter object. You can use
-// the same transporter object for all e-mails
+    if(err) {
+        response.message = 'Une erreur s\'est produite !';
+        return handleError(res, response);
+    }
 
 // setup e-mail data with unicode symbols
       var mailOptions = {
@@ -49,15 +71,15 @@ exports.create = function(req, res) {
 
 // send mail with defined transport object
       transporter.sendMail(mailOptions, function(error, info){
+          var response = {};
+
           if(error){
-              console.log(error);
+              handleError(res, 'Une erreur s\'est produite !');
           }else{
-              console.log('Message sent: ' + info.response);
-              return res.json(201, contact);
+              response.message = 'Votre message a bien été envoyé !';
+              return res.json(201, response);
           }
       });
-
-
   });
 };
 
