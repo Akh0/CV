@@ -9,11 +9,11 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'achille.guillon@gmail.com',
-        pass: 'akh894+-+-'
+        user: exports.GMAIL_EMAIL,
+        pass: exports.GMAIL_PASSWORD
     }
 });
-
+//console.log("MAIL ::::::::::::: ",exports.GMAIL_EMAIL);
 // Get list of contacts
 exports.index = function(req, res) {
   Contact.find(function (err, contacts) {
@@ -33,7 +33,7 @@ exports.show = function(req, res) {
 
 // Creates a new contact in the DB.
 exports.create = function(req, res) {
-    var response = {};
+    var response = { message: '' };
 
     var contact = req.body;
 
@@ -46,9 +46,9 @@ exports.create = function(req, res) {
     else if(typeof contact.message === 'undefined' || contact.message.length == 0) {
         response.message = 'Veuillez saisir un message.';
     }
-    else if(typeof contact.captcha === 'undefined' || contact.captcha.length == 0) {
-        response.message = 'Captcha incorrect.';
-    }
+    //else if(typeof contact.captcha === 'undefined' || contact.captcha.length == 0) {
+    //    response.message = 'Captcha incorrect.';
+    //}
 
     if(response.message.length > 0) {
         return handleError(res, response);
