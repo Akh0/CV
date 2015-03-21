@@ -33,7 +33,7 @@ exports.show = function(req, res) {
 
 // Creates a new contact in the DB.
 exports.create = function(req, res) {
-    var response = { message: '' };
+    var response = {};
 
     var contact = req.body;
 
@@ -50,10 +50,11 @@ exports.create = function(req, res) {
     //    response.message = 'Captcha incorrect.';
     //}
 
-    if(response.message.length > 0) {
+    if(response.message) {
         return handleError(res, response);
     }
 
+    //console.log("OK OK OK");
   Contact.create(req.body, function(err, contact) {
     if(err) {
         response.message = 'Une erreur s\'est produite !';
