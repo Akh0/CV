@@ -1,24 +1,23 @@
-<div class="alertstrip">
-    Étudie toute proposition d'embauche !
-</div>
-<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="main">
+    <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
-    <div class="content">
-        <div ng-include="'app/presentation/presentation.html'" id="presentation"></div>
+    <div class="container">
+        <div class="content">
+            <div ng-include="'app/presentation/presentation.html'" id="presentation"></div>
 
-        <div ng-include="'app/competences/competences.html'" id="competences"></div>
+            <div ng-include="'app/competences/competences.html'" id="competences"></div>
 
-        <div ng-include="'app/experiences/experiences.html'" id="experiences"></div>
+            <div ng-include="'app/experiences/experiences.html'" id="experiences"></div>
 
-        <div ng-include="'app/realisations/realisations.html'" id="realisations"></div>
+            <div ng-include="'app/realisations/realisations.html'" id="realisations"></div>
 
-        <div ng-include="'app/formation/formation.html'" id="formation"></div>
+            <div ng-include="'app/formation/formation.html'" id="formation"></div>
 
-        <div ng-include="'app/contact/contact.html'" id="contact"></div>
+            <div ng-include="'app/contact/contact.html'" id="contact"></div>
+        </div>
     </div>
-</div>
 
-<footer class="footer">
-    Site réalisé avec AngularJS, NodeJS & Yeoman
-</footer>
+    <footer>
+        Site réalisé avec AngularJS, NodeJS & Yeoman
+    </footer>
+</div>

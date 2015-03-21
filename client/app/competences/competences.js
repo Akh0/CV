@@ -6,7 +6,9 @@ angular.module('cv2App')
       .state('main.competences', {
         url: 'competences',
         controller: 'CompetencesCtrl',
-            onEnter: ['scrollTo', function(scrollTo) {
+            onEnter: ['$stateParams', '$state', 'scrollTo', function($stateParams, $state, scrollTo) {
+                console.log($state);
+                console.log($stateParams);
                 scrollTo.scrollToAnchor('competences');
             }]
       });

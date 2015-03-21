@@ -12,17 +12,17 @@ angular.module('cv2App')
 
                     angular.forEach(items, function(item) {
                         var $div = $('#'+item),
-                            top = $div.offset().top - currentPosition,
+                            top = $div.offset().top - 50,
+                            //top = $div.offset().top,
                             bottom = top + $div.outerHeight();
 
                         if(currentPosition >= top && currentPosition <= bottom) {
                             console.log("ON EST LA : "+item);
                             //$state.transitionTo('main.'+item, { notify: false });
+                            //$state.go("main."+item, {noAnimate:true}, {notify: false, inherit:false});
+
 
                         }
-
-                    //
-                    //    console.log(item, pageYOffset,  $div.offset().top);
                     });
                 });
             }

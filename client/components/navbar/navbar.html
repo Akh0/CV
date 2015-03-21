@@ -20,19 +20,23 @@
 <!--</div>-->
 
 
-<header min-header-scroll ng-class="{ minified: minifiedHeader }">
+<header min-header-scroll ng-class="{ minified: minifiedHeader }" ng-controller="NavbarCtrl">
+    <div class="ribbon">
+        <a ui-sref="main.contact" class="ribbon-content">En recherche d'emploi</a>
+    </div>
+
     <div class="header-container">
-        <img src="img/avatar.png" alt="" width="70" id="avatar"/>
+        <img src="../../assets/images/avatar.png" alt="" width="70" id="avatar"/>
         <h1><a ui-sref="main.presentation">CV Achille Guillon<br/><span class="slogan">Full Stack Developper</span></a></h1>
-        <!--<a id="menu-button" ui-sref="menu">&#9776;</a>-->
-        <nav>
+        <a id="menu-button" ng-click="showMenu=!showMenu"><img src="../../assets/images/picto_hamburger.svg" width="36" alt=""/></a>
+        <nav ng-show="showMenu || !mobileDevice" ng-click="showMenu = false">
             <ul>
                 <!--<li><a ui-sref="presentation">Présentation</a></li>-->
-                <li><a ui-sref="main.competences">Compétences</a></li>
-                <li><a ui-sref="main.experiences">Expériences</a></li>
-                <li><a ui-sref="main.realisations">Réalisations</a></li>
-                <li><a ui-sref="main.formation">Formation</a></li>
-                <li><a ui-sref="main.contact">Contact</a></li>
+                <li><a ui-sref="main.competences" ui-sref-active="active">Compétences</a></li>
+                <li><a ui-sref="main.experiences" ui-sref-active="active">Expériences</a></li>
+                <li><a ui-sref="main.realisations" ui-sref-active="active">Réalisations</a></li>
+                <li><a ui-sref="main.formation" ui-sref-active="active">Formation</a></li>
+                <li><a ui-sref="main.contact" ui-sref-active="active">Contact</a></li>
             </ul>
         </nav>
     </div>
