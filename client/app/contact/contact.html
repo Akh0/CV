@@ -1,32 +1,30 @@
 <section class="contact even">
+    <div class="overlay-loader" ng-show="true || messageSending">
+
+    </div>
+
     <div class="content">
         <h2>Contact</h2>
 
         <form ng-submit="submit()" ng-controller="ContactCtrl">
-            <div class="contact-inputs" ng-show="!messageSent">
-                <input type="text" ng-model="contact.nom" id="nom" placeholder="Nom"/><br/>
-                <input type="email" ng-model="contact.email" id="email" placeholder="E-mail"/><br/>
-                <textarea ng-model="contact.message" id="message" placeholder="Message"></textarea>
+            <div class="contact-inputs">
+                <input type="text" ng-model="contact.nom" id="nom" placeholder="Nom" ng-disabled="messageSending"/><br/>
+                <input type="email" ng-model="contact.email" id="email" placeholder="E-mail" ng-disabled="messageSending"/><br/>
+                <textarea ng-model="contact.message" id="message" placeholder="Message" ng-disabled="messageSending"></textarea>
                 <br/>
                 <!--<label id="label-captcha" for="captcha">1 + 1 = </label>-->
                 <!--<input type="text" ng-model="contact.captcha" id="captcha" placeholder="Captcha"/>-->
             </div>
 
-            <div class="contact-letter" ng-show="messageSent">
-                <p class="sender">
-                    {{ contact.nom }}<br/>
-                    from: {{ contact.email }}
-                </p>
 
-                <p class="receiver">
-                    Achille GUILLON<br/>
-                    to: achille.guillon@gmail.com
-                </p>
+            <button type="submit" ng-class="{ 'loading': messageSending }">
+                <span class="text-button">Envoyer</span>
+                <div class="spinner" ng-show="messageSending">
+                    <div class="dot1"></div>
+                    <div class="dot2"></div>
+                </div>
+            </button>
 
-                <p class="message" ng-bind-html="contact.message | nl2br"></p>
-            </div>
-
-            <button type="submit">Envoyer</button>
             <p ng-show="!successMessage && !errorMessage"></p>
 
             <p ng-show="successMessage" class="form-response success">{{ successMessage }}</p>

@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('lodash');
-var Contact = require('./contact.model');
 var validator = require('validator');
 var nodemailer = require('nodemailer');
 
@@ -9,107 +8,61 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: exports.GMAIL_EMAIL,
-        pass: exports.GMAIL_PASSWORD
+        user: process.env.GMAIL_EMAIL,
+        pass: process.env.GMAIL_PASSWORD
     }
 });
-//console.log("MAIL ::::::::::::: ",exports.GMAIL_EMAIL);
-// Get list of contacts
-exports.index = function(req, res) {
-  Contact.find(function (err, contacts) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, contacts);
-  });
-};
-
-// Get a single contact
-exports.show = function(req, res) {
-  Contact.findById(req.params.id, function (err, contact) {
-    if(err) { return handleError(res, err); }
-    if(!contact) { return res.send(404); }
-    return res.json(contact);
-  });
-};
 
 // Creates a new contact in the DB.
-exports.create = function(req, res) {
+exports.create = function (req, res) {
+    var contact = req.body;
+    var response = checkFields(contact);
+
+    if (response.message) {
+        return handleError(res, response);
+    }
+
+    sendMail(contact, function () {
+        return res.json(201, {message: 'Votre message a bien été envoyé !'});
+    }, function (error) {
+        console.log(error);
+        handleError(res, {message: 'Une erreur s\'est produite !'});
+    });
+};
+
+function checkFields(contact) {
     var response = {};
 
-    var contact = req.body;
-
-    if(typeof contact.nom === 'undefined' || contact.nom.length == 0) {
+    if (typeof contact.nom === 'undefined' || contact.nom.length == 0) {
         response.message = 'Veuillez saisir votre nom.';
     }
-    else if(!validator.isEmail(contact.email)) {
+    else if (!validator.isEmail(contact.email)) {
         response.message = 'E-mail incorrecte.';
     }
-    else if(typeof contact.message === 'undefined' || contact.message.length == 0) {
+    else if (typeof contact.message === 'undefined' || contact.message.length == 0) {
         response.message = 'Veuillez saisir un message.';
     }
     //else if(typeof contact.captcha === 'undefined' || contact.captcha.length == 0) {
     //    response.message = 'Captcha incorrect.';
     //}
 
-    if(response.message) {
-        return handleError(res, response);
-    }
+    return response;
+}
 
-    //console.log("OK OK OK");
-  Contact.create(req.body, function(err, contact) {
-    if(err) {
-        response.message = 'Une erreur s\'est produite !';
-        return handleError(res, response);
-    }
+function sendMail(contact, successCallback, errorCallback) {
+    var mailOptions = {
+        from: contact.nom + '<' + contact.email + '>',
+        to: 'achille.guillon@gmail.com',
+        subject: '[CV en ligne] Formulaire de contact',
+        text: contact.message + "\n\n Message envoyé par "+contact.email,
+        html: '<p>' + contact.message + '</p><br/><br/> Message envoyé par '+contact.email
+    };
 
-// setup e-mail data with unicode symbols
-      var mailOptions = {
-          from: contact.nom +'<'+contact.email+'>', // sender address
-          to: 'achille.guillon@gmail.com', // list of receivers
-          subject: '[CV en ligne] Formulaire de contact', // Subject line
-          text: contact.message, // plaintext body
-          html: '<p>'+contact.message+'</p>' // html body
-      };
-
-// send mail with defined transport object
-      transporter.sendMail(mailOptions, function(error, info){
-          var response = {};
-
-          if(error){
-              handleError(res, 'Une erreur s\'est produite !');
-          }else{
-              response.message = 'Votre message a bien été envoyé !';
-              return res.json(201, response);
-          }
-      });
-  });
-};
-
-// Updates an existing contact in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Contact.findById(req.params.id, function (err, contact) {
-    if (err) { return handleError(res, err); }
-    if(!contact) { return res.send(404); }
-    var updated = _.merge(contact, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, contact);
+    transporter.sendMail(mailOptions, function (error, info) {
+        error ? errorCallback(error) : successCallback(info);
     });
-  });
-};
-
-// Deletes a contact from the DB.
-exports.destroy = function(req, res) {
-  Contact.findById(req.params.id, function (err, contact) {
-    if(err) { return handleError(res, err); }
-    if(!contact) { return res.send(404); }
-    contact.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
-  });
-};
+}
 
 function handleError(res, err) {
-  return res.send(500, err);
+    return res.send(500, err);
 }
