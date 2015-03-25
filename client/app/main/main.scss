@@ -849,6 +849,12 @@ footer {
   min-height: 60px;
   background: #2c3e50;
   color: #FFF;
+  
+  nav {
+    ul {
+      padding: 0;
+    }
+  }
 }
 
 /*==========================================*\
@@ -1024,6 +1030,13 @@ body.mobile section.presentation {
 
   footer {
     margin-top: 0;
+    padding: 20px 0;
+
+    nav {
+      ul {
+        padding: 0 10px 0 10px;
+      }
+    }
   }
 }
 
