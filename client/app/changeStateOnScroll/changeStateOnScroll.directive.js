@@ -17,7 +17,7 @@ angular.module('cv2App')
                             bottom = top + $div.outerHeight();
 
                         if(currentPosition >= top && currentPosition <= bottom) {
-                            console.log("ON EST LA : "+item);
+                            //console.log("ON EST LA : "+item);
                             //$state.transitionTo('main.'+item, { notify: false });
                             //$state.go("main."+item, {noAnimate:true}, {notify: false, inherit:false});
 

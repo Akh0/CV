@@ -17,7 +17,7 @@
             </div>
 
 
-            <button type="submit" ng-class="{ 'loading': messageSending }">
+            <button type="submit" ng-class="{ 'loading': messageSending }" ng-disabled="messageSending">
                 <span class="text-button">Envoyer</span>
                 <div class="spinner" ng-show="messageSending">
                     <div class="dot1"></div>

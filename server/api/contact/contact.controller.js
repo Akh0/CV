@@ -4,14 +4,7 @@ var _ = require('lodash');
 var validator = require('validator');
 var nodemailer = require('nodemailer');
 
-// create reusable transporter object using SMTP transport
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: process.env.GMAIL_EMAIL,
-        pass: process.env.GMAIL_PASSWORD
-    }
-});
+
 
 // Creates a new contact in the DB.
 exports.create = function (req, res) {
@@ -50,6 +43,19 @@ function checkFields(contact) {
 }
 
 function sendMail(contact, successCallback, errorCallback) {
+    // create reusable transporter object using SMTP transport
+    var transporter = nodemailer.createTransport({
+        service: 'Hotmail',
+        auth: {
+            user: process.env.GMAIL_EMAIL,
+            pass: process.env.GMAIL_PASSWORD
+        },
+        debug: true
+    });
+
+    console.log("GMAIL CREDENTIALS :::::: "+ process.env.GMAIL_EMAIL+" / "+process.env.GMAIL_PASSWORD);
+    transporter.on('log', console.log);
+
     var mailOptions = {
         from: contact.nom + '<' + contact.email + '>',
         to: 'achille.guillon@gmail.com',
@@ -64,5 +70,5 @@ function sendMail(contact, successCallback, errorCallback) {
 }
 
 function handleError(res, err) {
-    return res.send(500, err);
+    return res.send(403, err);
 }

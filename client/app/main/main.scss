@@ -72,7 +72,7 @@ footer {
     span {
       display: block;
       padding: 8px 16px;
-      background: #0f7c67;
+      background: #1282A3;
       -webkit-transition: -webkit-transform 0.3s;
       -moz-transition: -moz-transform 0.3s;
       transition: transform 0.3s;
@@ -87,7 +87,7 @@ footer {
       width: 100%;
       height: 100%;
       background: #fff;
-      color: #0f7c67;
+      color: #1282A3;
       content: attr(data-hover);
       -webkit-transition: -webkit-transform 0.3s;
       -moz-transition: -moz-transform 0.3s;
@@ -248,7 +248,7 @@ header {
 
     img#avatar {
       width: 55px;
-      margin: 6px 10px 0 0;
+      margin: 6px 10px 0 6px;
     }
 
     h1 {
@@ -284,11 +284,19 @@ header {
     padding: 10px 0 60px 0;
 
     &.odd {
-      background: #18bc9c;
+      background: #1897BC;
       color: #FFF;
+
+      h2 {
+        text-shadow: 1px 1px 1px #222;
+      }
     }
     &.even {
+      color: #2C3E50;
 
+      h2 {
+        text-shadow: 1px 1px 1px #DDD;
+      }
     }
 
     .content {
@@ -303,6 +311,7 @@ header {
       text-align: center;
       text-transform: uppercase;
       font-size: 28px;
+
     }
 
     /*==========================================*\
@@ -318,11 +327,19 @@ header {
 
       .competences-section {
         float: left;
-        background: #d1d1d1;
-        margin: 0 22px 44px 22px;
-        padding: 16px;
-        width: 320px;
-        color: #343434;
+        background: #1897BC;
+        margin: 0 15px 45px 15px;
+        padding: 14px;
+        width: 230px;
+        color: #FFFFFF;
+        border: 6px solid #FFFFFF;
+        border-radius: 8px;
+
+        transition: 400ms;
+
+        &:hover {
+          border-color: #2C3E50;
+        }
 
         h3 {
           text-align: center;
@@ -331,6 +348,10 @@ header {
         img {
           display: block;
           margin: auto;
+        }
+
+        &.first {
+          margin-left: 0;
         }
 
         &.last {
@@ -344,6 +365,8 @@ header {
 
       ul {
         padding: 0;
+        margin: 0;
+        text-align: leftn;
       }
       ul li {
         list-style-type: none;
@@ -351,6 +374,10 @@ header {
         padding-top: 10px;
         border-bottom: 1px dashed #bcbcbc;
 
+        &.last {
+          border: none;
+          padding-bottom: 0;
+        }
       }
     }
     /*==========================================*\
@@ -371,13 +398,14 @@ header {
       .experience {
         margin: 20px 20px 40px 20px;
         padding: 20px;
-        background: rgba(255, 255, 255, 0.21);
+        background: #47ACC9;
 
         h3 {
           font-size: 24px;
           padding-bottom: 15px;
           border-bottom: 2px dashed #FFF;
           margin-top: 0;
+          text-shadow: 1px 1px 1px #222;
 
           img {
             vertical-align: middle;
@@ -389,11 +417,12 @@ header {
             font-size: 16px;
             font-style: italic;
             padding-left: 20px;
+            text-shadow: 0 0 0 #000;
           }
         }
 
         strong {
-          border-bottom: 1px dashed #FFF;
+
         }
 
         .reveal-pushout-link-wrapper {
@@ -449,7 +478,7 @@ header {
             text-align: center;
             margin: 0 auto;
             padding: 2px;
-            background: #47C9B0;
+            background: #47ACC9;
             border-radius: 8px;
             border: 1px solid #FFF;
 
@@ -489,10 +518,12 @@ header {
 
           .item {
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.21);
+            background: #47ACC9;
             width: 400px;
             height: 65px;
             text-align: center;
+            position: relative;
+            z-index: 2;
 
             &.double {
               height: 150px;
@@ -518,6 +549,49 @@ header {
 
             .diplome {
               font-size: 14px;
+            }
+          }
+
+          .highlight {
+            width: 70px;
+            height: 130px;
+            position: absolute;
+            top: -24px;
+            border: 1px dashed #FFF;
+            z-index: 1;
+
+            &.switchoff {
+              animation-duration: 1000ms;
+              animation-name: highlightBorder;
+              animation-direction: reverse;
+            }
+
+            &.double {
+              height: 215px;
+            }
+
+            &.left {
+              border-right: 0;
+              left: 410px;
+            }
+
+            &.right {
+              border-left: 0;
+              right: 410px;
+            }
+
+            animation-duration: 1000ms;
+            animation-name: highlightBorder;
+            animation-direction: normal;
+
+            @keyframes highlightBorder {
+              from {
+                width: 0;
+              }
+
+              to {
+                width: 70px;
+              }
             }
           }
         }
@@ -596,7 +670,7 @@ header {
         }
 
         &:hover {
-          border-color: #18BC9C;
+          border-color: #1897BC;
         }
 
         &:hover .description-hover {
@@ -634,7 +708,7 @@ header {
       outline: none;
 
       &:focus {
-        border-color: #18bc9c;
+        border-color: #1897BC;
       }
     }
     input {
@@ -658,7 +732,7 @@ header {
     button {
       position: relative;
       font-family: Montserrat;
-      background: #18bc9c;
+      background: #1897BC;
       color: #FFFFFF;
       border: none;
       border-radius: 5px;
@@ -797,6 +871,8 @@ body.mobile section.presentation {
     padding-top: 50px;
 
     section {
+      padding-bottom: 15px;
+
       h2 {
         margin: 25px 0 35px 0;
       }
@@ -806,9 +882,9 @@ body.mobile section.presentation {
       }
 
       &.competences .competences-section {
-        width: auto;
-        max-width: 285px;
-        margin: 0 10px 20px 10px;
+        width: 285px;
+        margin: 0 auto 20px auto !important;
+        float: none;
       }
 
       &.realisations .realisation {
@@ -816,6 +892,14 @@ body.mobile section.presentation {
 
         img {
           width: auto;
+        }
+
+        .description-hover {
+          width: auto;
+          
+          .reveal-pushout-link-wrapper {
+            position: static;
+          }
         }
       }
 
@@ -827,6 +911,74 @@ body.mobile section.presentation {
           margin-top: 15px;
           padding-left: 0;
           text-align: center;
+        }
+      }
+
+      &.formation {
+        ul.timeline {
+          li {
+            .item {
+              width: 110px;
+              height: 90px;
+              overflow: hidden;
+
+              .etablissement {
+                font-size: 10px;
+                padding-bottom: 5px;
+                margin-bottom: 5px;
+              }
+
+              .diplome {
+                font-size: 9px;
+              }
+
+              &.left {
+                border-left: 6px solid #FFF;
+              }
+
+              &.right {
+                border-right: 6px solid #FFF;
+              }
+            }
+
+            .time {
+              width: 70px;
+              font-size: 10px;
+
+              &.middle-time {
+                margin-left: -39px;
+                z-index: 3;
+              }
+            }
+
+            .highlight {
+              width: 30px;
+              height: 148px;
+              top: -20px;
+
+              &.left {
+                left: 100px;
+              }
+
+              &.right {
+                right: 100px;
+              }
+
+              &.double {
+                height: 208px;
+              }
+
+              @keyframes highlightBorder {
+                from {
+                  width: 0;
+                }
+
+                to {
+                  width: 30px;
+                }
+              }
+            }
+          }
         }
       }
 
