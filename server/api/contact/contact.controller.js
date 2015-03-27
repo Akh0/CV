@@ -60,8 +60,8 @@ function sendMail(contact, successCallback, errorCallback) {
         from: contact.nom + '<' + contact.email + '>',
         to: 'achille.guillon@gmail.com',
         subject: '[CV en ligne] Formulaire de contact',
-        text: contact.message + "\n\n Message envoyé par "+contact.email,
-        html: '<p>' + contact.message + '</p><br/><br/> Message envoyé par '+contact.email
+        text: contact.message + "\n\n Message envoyé par " + contact.nom + " [" + contact.email + "]",
+        html: '<p>' + contact.message + '</p><br/><br/> Message envoyé par ' + contact.nom + ' [' + contact.email + ']'
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
